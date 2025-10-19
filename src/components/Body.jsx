@@ -4,9 +4,9 @@ import Footer from "./Footer";
 
 export default function Body() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="grid min-h-screen grid-rows-[auto_1fr_auto]">
       <NavBar />
-      <div className="flex grow">
+      <div>
         <Outlet />
       </div>
       <Footer />
