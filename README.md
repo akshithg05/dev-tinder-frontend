@@ -26,3 +26,6 @@
 - Create a new file for userSlice.
 - In user Slice, give name, intitialize the state, write the actions and reducer functions. IMport the actions and the slice(reducer)
 - Import slice in the main store and pass it in the reducers of store.
+- Add redux dev tools
+- Login and see if data is cmoing into store.
+- Refactor code to add constants file.
