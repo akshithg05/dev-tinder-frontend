@@ -3,7 +3,7 @@ import axios from "axios";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
 import { BASE_URL } from "../../utils/constants";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../store/userSlice";
 import { useEffect, useState } from "react";
 
@@ -11,23 +11,20 @@ export default function Body() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const user = useSelector((store) => store?.user);
 
   const [loading, setLoading] = useState(false);
 
   async function fetchUser() {
     try {
-      setLoading(true);
-      const loggedInUser = await axios.get(`${BASE_URL}/profile/view`, { withCredentials: true });
+      const loggedInUser = await axios.get(`${BASE_URL}/profile/view`, {}, { withCredentials: true });
       dispatch(addUser(loggedInUser?.data?.data?.user));
     } catch (err) {
-      console.log(err);
       const status = err?.response?.status;
 
       if (status === 401) {
-        // Unauthorized → go to login unless already at /error
         if (location.pathname !== "/error") navigate("/login");
       } else {
-        // Other errors → show error page
         if (location.pathname !== "/error") navigate("/error");
       }
     } finally {
@@ -36,7 +33,9 @@ export default function Body() {
   }
 
   useEffect(() => {
-    fetchUser();
+    if (!user) {
+      fetchUser();
+    }
   }, []);
 
   return (

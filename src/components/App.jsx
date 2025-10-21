@@ -13,8 +13,8 @@ function App() {
           <Route path="/feed" element={<Feed />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
-          <Route path="/error" element={<Error />}></Route>
         </Route>
+        <Route path="/error" element={<Error />}></Route>
         <Route path="*" element={<Error />} />
       </Routes>
     </>

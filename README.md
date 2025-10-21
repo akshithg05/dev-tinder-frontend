@@ -29,3 +29,7 @@
 - Add redux dev tools
 - Login and see if data is cmoing into store.
 - Refactor code to add constants file.
+- If token is not present, redirect user to login page
+- If user is not logged in do not allow anty route other than login.
+- Built Logout feature
+- Profile
