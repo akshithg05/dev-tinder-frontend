@@ -32,4 +32,5 @@
 - If token is not present, redirect user to login page
 - If user is not logged in do not allow anty route other than login.
 - Built Logout feature
-- Profile
+- Get feed and feed in the store
+- Build the user card.
