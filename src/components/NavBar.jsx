@@ -69,7 +69,7 @@ export default function NavBar() {
                     <img
                       alt="Tailwind CSS Navbar component"
                       src={
-                        loggedInUser?.photoURL ||
+                        loggedInUser?.photoUrl ||
                         "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                       }
                     />
@@ -83,7 +83,6 @@ export default function NavBar() {
                 <li>
                   <Link to="/profile" className="justify-between">
                     Profile
-                    <span className="badge">New</span>
                   </Link>
                 </li>
                 <li>
