@@ -41,7 +41,7 @@ export default function Body() {
   return (
     <div className="grid min-h-screen grid-rows-[auto_1fr_auto]">
       <NavBar />
-      <div>
+      <div className="h-full">
         {loading ? (
           <div className="grid place-items-center min-h-full">
             <span className="loading  loading-spinner loading-xl"></span>

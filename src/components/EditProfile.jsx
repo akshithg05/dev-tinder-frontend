@@ -1,8 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { isValidURL } from "../../utils/helpers";
 import UserCard from "./UserCard";
+import axios from "axios";
+import { BASE_URL } from "./../../utils/constants";
+import { addUser } from "../store/userSlice";
 
 export default function EditProfile({ user }) {
+  const dispatch = useDispatch();
+
   const [firstName, setFirstName] = useState(user?.firstName);
   const [lastName, setLastName] = useState(user?.lastName);
   const [about, setAbout] = useState(user?.about);
@@ -14,6 +20,7 @@ export default function EditProfile({ user }) {
   const [error, setError] = useState("");
   const [urlError, setUrlError] = useState(false);
   const [ageError, setAgeError] = useState(false);
+  const [showToast, setShowToast] = useState(false);
 
   function handleAgeChange(e) {
     setAgeError(false);
@@ -65,9 +72,27 @@ export default function EditProfile({ user }) {
     }
   }
 
+  async function saveProfile() {
+    try {
+      const res = await axios.patch(
+        `${BASE_URL}/profile/edit`,
+        { firstName, lastName, age, about, gender, skills, photoUrl },
+        { withCredentials: true }
+      );
+      dispatch(addUser(res?.data?.data?.user));
+      setShowToast(true);
+      setTimeout(() => {
+        setShowToast(false);
+      }, 3000);
+    } catch (err) {
+      console.log(err);
+      setError(err);
+    }
+  }
+
   return (
-    <div className="flex justify-center ">
-      <div className="grid place-items-center mt-10 mr-5">
+    <div className="flex flex-col md:flex-row justify-center gap-10 min-h-[calc(100vh-6rem)] p-4">
+      <div className="flex-1 min-w-[300px] max-w-sm h-full grid place-items-center">
         <fieldset className="fieldset bg-base-300  shadow-sm border-base-300 rounded-box w-xs border p-4">
           <legend className="fieldset-legend">Edit Profile</legend>
 
@@ -179,14 +204,28 @@ export default function EditProfile({ user }) {
             })}
           </div>
 
-          <button disabled={ageError || urlError} className="btn btn-soft btn-primary mt-5">
+          <button disabled={ageError || urlError} onClick={saveProfile} className="btn btn-soft btn-primary mt-5">
             Save Profile
           </button>
         </fieldset>
       </div>
-      <div className="mt-4">
+      <div className="flex-1 min-w-[300px] max-w-sm h-full">
         <UserCard user={{ firstName, lastName, age, about, gender, skills, photoUrl }} profile={true} />
       </div>
+      {showToast && !error && (
+        <div className="toast toast-center toast-top">
+          <div className="alert alert-success">
+            <span>Profile saved successfully!</span>
+          </div>
+        </div>
+      )}
+      {showToast && error && (
+        <div className="toast toast-center toast-top">
+          <div className="alert alert-error">
+            <span>Something went wrong!</span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
