@@ -21,6 +21,7 @@ export default function EditProfile({ user }) {
   const [urlError, setUrlError] = useState(false);
   const [ageError, setAgeError] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   function handleAgeChange(e) {
     setAgeError(false);
@@ -74,6 +75,7 @@ export default function EditProfile({ user }) {
 
   async function saveProfile() {
     try {
+      setLoading(true);
       const res = await axios.patch(
         `${BASE_URL}/profile/edit`,
         { firstName, lastName, age, about, gender, skills, photoUrl },
@@ -87,6 +89,8 @@ export default function EditProfile({ user }) {
     } catch (err) {
       console.log(err);
       setError(err);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -204,8 +208,18 @@ export default function EditProfile({ user }) {
             })}
           </div>
 
-          <button disabled={ageError || urlError} onClick={saveProfile} className="btn btn-soft btn-primary mt-5">
-            Save Profile
+          <button
+            disabled={ageError || urlError || loading}
+            onClick={saveProfile}
+            className="btn btn-soft btn-primary mt-5"
+          >
+            {loading ? (
+              <div className="flex justify-center">
+                <span className="loading loading-spinner loading-sm"></span>
+              </div>
+            ) : (
+              "Save profile"
+            )}
           </button>
         </fieldset>
       </div>
