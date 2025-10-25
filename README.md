@@ -36,3 +36,7 @@
 - Build the user card.
 - Build edit profile page
 - Add edit profile form and usercard.
+- Add toast notification for saving profile.
+- Add Connections page.
+- Add connection requests page
+- Accept reject connection request in request page
