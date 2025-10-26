@@ -35,13 +35,13 @@ export default function Feed() {
   }, []);
 
   return (
-    <div>
+    <div className="flex justify-center">
       {loading ? (
         <div className="flex justify-center mt-75">
           <span className="loading loading-spinner loading-xl"></span>
         </div>
       ) : feed?.length === 0 ? (
-        <>No users</>
+        <h1 className="text-2xl font-bold">No users</h1>
       ) : (
         feed && <UserCard user={feed[0]} />
       )}

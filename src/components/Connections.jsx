@@ -42,11 +42,15 @@ export default function Connection() {
       ) : (
         <>
           <h1 className="py-3 px-5 font-bold text-2xl">Connections</h1>
-          <div className="flex justify-center mb-5">
-            <div className="flex flex-col justify-center gap-4 overflow-y-auto max-h-[80vh] px-3 w-full sm:w-auto">
+
+          <div>
+            <div className="flex items-center flex-col mx-3">
               {connectionsData.map((connection) => {
                 return (
-                  <div key={connection?._id} className="card card-side bg-base-300 shadow-sm w-full sm:w-[90%] md:w-[700px] flex-shrink-0">
+                  <div
+                    key={connection?._id}
+                    className="card card-side bg-base-300 shadow-sm w-[100%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] my-3"
+                  >
                     <figure>
                       <img className="w-30" src={connection?.photoUrl} alt="photo" />
                     </figure>

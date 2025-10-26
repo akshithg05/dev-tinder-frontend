@@ -40,3 +40,6 @@
 - Add Connections page.
 - Add connection requests page
 - Accept reject connection request in request page
+- Swipe left/ swipe right functionality
+- Sign up user
+- Match or not functionality
