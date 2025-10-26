@@ -42,7 +42,7 @@ export default function NavBar() {
             setModalOpen(false);
             navigate("/login");
           }}
-          title={"Logging out"}
+          title={"Log out"}
         >
           {loading ? (
             <div className="grid place-items-center min-h-full">

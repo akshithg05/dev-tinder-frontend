@@ -9,10 +9,15 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isLogIn, setIsLogIn] = useState(true);
 
   function handleEmailChange(e) {
     setEmail(e.target.value);
@@ -24,7 +29,7 @@ export default function Login() {
     setError(null);
   }
 
-  async function handleClick() {
+  async function handleLogin() {
     try {
       setLoading(true);
       const res = await axios.post(
@@ -41,17 +46,137 @@ export default function Login() {
       dispatch(addUser(res?.data.loggedInUser));
       return navigate("/feed");
     } catch (err) {
-      setError(err);
+      setError(err?.response?.data?.message);
     } finally {
       setLoading(false);
     }
+  }
+  async function handleSignUp() {
+    try {
+      setLoading(true);
+      let res = await axios.post(
+        `${BASE_URL}/signup`,
+        {
+          firstName: firstName,
+          lastName: lastName,
+          emailId: email,
+          password: password,
+          age: age,
+          gender: gender,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      res = await axios.post(
+        `${BASE_URL}/login`,
+        {
+          emailId: email,
+          password: password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      dispatch(addUser(res?.data?.loggedInUser));
+      return navigate("/feed");
+    } catch (err) {
+      if (err?.response?.data?.message?.startsWith("E11000")) {
+        setError("Email id already exists!");
+      } else {
+        setError(err?.response?.data?.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleAuthMethod() {
+    setError(null);
+    setIsLogIn(!isLogIn);
   }
 
   return (
     <div className="grid place-items-center min-h-full">
       <div className="card bg-base-300 w-96 shadow-sm">
         <div className="card-body">
-          <h2 className="card-title">Login!</h2>
+          <h2 className="card-title">{isLogIn ? "Login!" : "Sign up"}</h2>
+
+          {!isLogIn && (
+            <>
+              <label className="label">First name</label>
+              <label className="input validator">
+                <input
+                  required
+                  type="text"
+                  placeholder="First name"
+                  className="input"
+                  onChange={(e) => setFirstName(e.target.value)}
+                  pattern="[A-Za-z\s\-]+"
+                  title="Only letters, spaces, or hyphens allowed"
+                  value={firstName}
+                />
+              </label>
+              <div className="validator-hint hidden">Enter a valid name</div>
+
+              <label className="label">Last name</label>
+              <label className="input validator">
+                <input
+                  type="text"
+                  placeholder="Last name"
+                  className="input"
+                  onChange={(e) => setLastName(e.target.value)}
+                  value={lastName}
+                />
+              </label>
+
+              <label className="label">Last name</label>
+              <label className="input validator">
+                <input
+                  type="text"
+                  placeholder="Age"
+                  className="input"
+                  onChange={(e) => setAge(e.target.value)}
+                  value={age}
+                />
+              </label>
+
+              <label className="label">Gender</label>
+              <div className="flex">
+                <input
+                  type="radio"
+                  value="male"
+                  name="radio-4"
+                  className="radio radio-primary"
+                  checked={gender === "male"}
+                  onChange={(e) => setGender(e.target.value)}
+                />{" "}
+                <p className="pt-1 pl-3">Male</p>
+              </div>
+              <div className="flex">
+                <input
+                  type="radio"
+                  value="female"
+                  name="radio-4"
+                  className="radio radio-primary"
+                  checked={gender === "female"}
+                  onChange={(e) => setGender(e.target.value)}
+                />{" "}
+                <p className="pt-1 pl-3">Female</p>
+              </div>
+              <div className="flex">
+                <input
+                  type="radio"
+                  value="others"
+                  name="radio-4"
+                  className="radio radio-primary"
+                  checked={gender === "others"}
+                  onChange={(e) => setGender(e.target.value)}
+                />{" "}
+                <p className="pt-1 pl-3">Others</p>
+              </div>
+            </>
+          )}
 
           <label className="label">Email</label>
           <label className="input validator">
@@ -98,13 +223,17 @@ export default function Login() {
             At least one lowercase letter <br />
             At least one uppercase letter
           </p>
-          {error && (
-            <p className="text-red-600">{error?.response?.data?.message || "Something went wrong, try again later"}</p>
-          )}
+          {error && <p className="text-red-600">{error || "Something went wrong, try again later"}</p>}
 
-          <button onClick={handleClick} disabled={loading} className="btn btn-primary mt-4">
-            {loading ? "Loading..." : "Login"}
+          <button onClick={isLogIn ? handleLogin : handleSignUp} disabled={loading} className="btn btn-primary mt-4">
+            {loading ? "Loading..." : isLogIn ? "Login" : "Sign up!"}
           </button>
+          <p className="mt-2">
+            {isLogIn ? "New user ? " : "Returning user ? "}
+            <button className="cursor-pointer" onClick={handleAuthMethod}>
+              <p className="font-bold ">{isLogIn ? "Sign up here!" : "Login here"}</p>
+            </button>
+          </p>
         </div>
       </div>
     </div>
