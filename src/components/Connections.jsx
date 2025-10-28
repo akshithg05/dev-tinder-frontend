@@ -13,7 +13,9 @@ export default function Connection() {
   async function fetchConnections() {
     try {
       setLoading(true);
-      const data = await axios.get(`${BASE_URL}/user/connections`, { withCredentials: true });
+      const data = await axios.get(`${BASE_URL}/user/connections`, {
+        withCredentials: true,
+      });
       setConnectionsData(data?.data?.connections);
     } catch (err) {
       setError(err);
@@ -27,8 +29,10 @@ export default function Connection() {
     fetchConnections();
   }, []);
 
-  if (connectionsData.length === 0) {
-    return <h1 className="font-bold text-2xl px-5 py-3">No connections found!</h1>;
+  if (!loading && connectionsData.length === 0) {
+    return (
+      <h1 className="font-bold text-2xl px-5 py-3">No connections found!</h1>
+    );
   }
 
   return (
@@ -52,7 +56,11 @@ export default function Connection() {
                     className="card card-side bg-base-300 shadow-sm w-[100%] sm:w-[80%] md:w-[70%] lg:w-[60%] xl:w-[50%] my-3"
                   >
                     <figure>
-                      <img className="w-30" src={connection?.photoUrl} alt="photo" />
+                      <img
+                        className="w-30"
+                        src={connection?.photoUrl}
+                        alt="photo"
+                      />
                     </figure>
                     <div className="card-body">
                       <h2 className="card-title font-bold">{`${connection?.firstName} ${connection?.lastName}`}</h2>

@@ -62,7 +62,9 @@ export default function Requests() {
       ) : error ? (
         <>Something went wrong</>
       ) : connectionRequests.length === 0 ? (
-        <h1 className="font-bold text-2xl px-5 py-3">No pending requests found!</h1>
+        <div className="flex justify-center mt-75">
+          <h1 className="font-bold text-2xl ">No pending requests found!</h1>
+        </div>
       ) : (
         <div>
           <h1 className="text-2xl font-bold px-5 py-3">Pending connection requests</h1>

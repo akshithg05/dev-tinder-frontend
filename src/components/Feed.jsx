@@ -17,7 +17,9 @@ export default function Feed() {
   async function getFeed() {
     try {
       setLoading(true);
-      const newFeed = await axios.get(`${BASE_URL}/feed`, { withCredentials: true });
+      const newFeed = await axios.get(`${BASE_URL}/feed`, {
+        withCredentials: true,
+      });
       dispatch(addFeed(newFeed?.data?.data));
     } catch (err) {
       if (!user) {

@@ -17,7 +17,9 @@ export default function Body() {
 
   async function fetchUser() {
     try {
-      const loggedInUser = await axios.get(`${BASE_URL}/profile/view`, { withCredentials: true });
+      const loggedInUser = await axios.get(`${BASE_URL}/profile/view`, {
+        withCredentials: true,
+      });
       dispatch(addUser(loggedInUser?.data?.data?.user));
     } catch (err) {
       const status = err?.response?.status;

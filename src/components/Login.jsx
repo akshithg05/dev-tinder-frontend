@@ -97,7 +97,7 @@ export default function Login() {
   }
 
   return (
-    <div className="grid place-items-center min-h-full">
+    <div className="grid place-items-center my-10">
       <div className="card bg-base-300 w-96 shadow-sm">
         <div className="card-body">
           <h2 className="card-title">{isLogIn ? "Login!" : "Sign up"}</h2>

@@ -129,7 +129,9 @@ export default function EditProfile({ user }) {
             max={99}
           />
           {age !== "" && (age < 18 || age > 99) && (
-            <p className="text-red-500 text-sm mt-1">Age must be between 18 and 99.</p>
+            <p className="text-red-500 text-sm mt-1">
+              Age must be between 18 and 99.
+            </p>
           )}
 
           <label className="label">About</label>
@@ -142,8 +144,16 @@ export default function EditProfile({ user }) {
           />
 
           <label className="label">Photo URL</label>
-          <input type="text" value={photoUrl} className="input" placeholder="Photo" onChange={handleUrlChange} />
-          {urlError && <p className="text-red-500 text-sm mt-1">Enter a valid URL</p>}
+          <input
+            type="text"
+            value={photoUrl}
+            className="input"
+            placeholder="Photo"
+            onChange={handleUrlChange}
+          />
+          {urlError && (
+            <p className="text-red-500 text-sm mt-1">Enter a valid URL</p>
+          )}
 
           <label className="label">Gender</label>
           <div className="flex">
@@ -191,7 +201,10 @@ export default function EditProfile({ user }) {
           <p className="text-red-500 text-sm mt-1">{error}</p>
 
           <div className="flex justify-end md-10">
-            <button className="btn btn-soft btn-primary w-25" onClick={() => handleAddSkill(skill)}>
+            <button
+              className="btn btn-soft btn-primary w-25"
+              onClick={() => handleAddSkill(skill)}
+            >
               Add skill
             </button>
           </div>
@@ -200,7 +213,10 @@ export default function EditProfile({ user }) {
             {skills.map((skill) => {
               return (
                 <div key={skill} className="badge  badge-primary mr-2 mb-2">
-                  <button className="cursor-pointer" onClick={() => handleDeleteSkill(skill)}>
+                  <button
+                    className="cursor-pointer"
+                    onClick={() => handleDeleteSkill(skill)}
+                  >
                     {skill} ✕
                   </button>
                 </div>
@@ -224,7 +240,10 @@ export default function EditProfile({ user }) {
         </fieldset>
       </div>
       <div className="flex-1 min-w-[300px] max-w-sm h-full">
-        <UserCard user={{ firstName, lastName, age, about, gender, skills, photoUrl }} profile={true} />
+        <UserCard
+          user={{ firstName, lastName, age, about, gender, skills, photoUrl }}
+          profile={true}
+        />
       </div>
       {showToast && !error && (
         <div className="toast toast-center toast-top">

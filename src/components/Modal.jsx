@@ -1,4 +1,13 @@
-export default function Modal({ title, children, isOpen, onClose }) {
+import { useNavigate } from "react-router-dom";
+
+export default function Modal({
+  title,
+  children,
+  isOpen,
+  onClose,
+  showConnectionButton,
+}) {
+  const navigate = useNavigate();
   return (
     <dialog className={`modal ${isOpen ? "modal-open" : ""}`}>
       <div className="modal-box">
@@ -6,7 +15,17 @@ export default function Modal({ title, children, isOpen, onClose }) {
         <div className="py-2">{children}</div>
 
         <div className="modal-action">
-          <button className="btn btn-primary" onClick={onClose}>
+          {showConnectionButton && (
+            <button
+              className="btn btn-primary"
+              onClick={() => {
+                navigate("/connections");
+              }}
+            >
+              Go to connections
+            </button>
+          )}
+          <button className="btn btn-soft btn-primary" onClick={onClose}>
             Close
           </button>
         </div>

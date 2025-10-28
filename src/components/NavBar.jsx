@@ -31,7 +31,11 @@ export default function NavBar() {
   return (
     <>
       {error && (
-        <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)} title={"Error"}>
+        <Modal
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          title={"Error"}
+        >
           There was an error while logging out!
         </Modal>
       )}
@@ -63,8 +67,14 @@ export default function NavBar() {
           {loggedInUser && (
             <div className="dropdown dropdown-end mx-5">
               <div className="flex">
-                <p className="text-center pt-1 pr-3">Hi {loggedInUser?.firstName}</p>
-                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                <p className="text-center pt-1 pr-3">
+                  Hi {loggedInUser?.firstName}
+                </p>
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost btn-circle avatar"
+                >
                   <div className="w-10 rounded-full">
                     <img
                       alt="Tailwind CSS Navbar component"
