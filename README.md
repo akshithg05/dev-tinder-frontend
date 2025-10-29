@@ -53,3 +53,9 @@
 - Install node in the machine and make sure the same working version of the local version is added.
 - SSh into machine and clone the backend and frontend projects.
 - cd into frontend project, do npm install and create a build - npm run build
+- update system - sudo apt update
+- install nginx - sudo apt install nginx
+- start nginx - sudo systemctl start nginx
+- enable nginx - sudo systemctl enable nginx
+- Copy code from dist folder (build files) to nginx http server (/var/www/html) - sudo scp -r dist/\* /var/www/html
+- Enable port 80 on instance through aws security groups
