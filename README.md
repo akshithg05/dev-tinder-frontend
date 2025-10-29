@@ -43,3 +43,10 @@
 - Swipe left/ swipe right functionality
 - Sign up user
 - Match or not functionality
+
+## Deployment
+
+- Create free ec2 instance.
+- create a key pair and download the .pem file
+- store it locally and then change permission of the .pem file "chmod 400 <.pem file>"
+- ssh into the ec2 instance using - ssh -i "dev-tinder-frontend-secret.pem" ubuntu@ec2-13-203-195-71.ap-south-1.compute.amazonaws.com
