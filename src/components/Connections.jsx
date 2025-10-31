@@ -29,9 +29,11 @@ export default function Connection() {
     fetchConnections();
   }, []);
 
-  if (!loading && connectionsData.length === 0) {
+  if (!loading && connectionsData?.length === 0) {
     return (
-      <h1 className="font-bold text-2xl px-5 py-3">No connections found!</h1>
+      <div className="flex justify-center mt-75">
+        <h1 className="font-bold text-2xl px-5 py-3">No connections found!</h1>
+      </div>
     );
   }
 
@@ -49,7 +51,7 @@ export default function Connection() {
 
           <div>
             <div className="flex items-center flex-col mx-3">
-              {connectionsData.map((connection) => {
+              {connectionsData?.map((connection) => {
                 return (
                   <div
                     key={connection?._id}

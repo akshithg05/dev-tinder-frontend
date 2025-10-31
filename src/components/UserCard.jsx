@@ -92,11 +92,7 @@ export default function UserCard({ user, profile }) {
       <div className="flex justify-center my-10 w-[100%] md:w-[86%]">
         <div className="card bg-base-300 w-96 shadow-sm">
           <figure>
-            <img
-              className="h-100 w-full"
-              src={photoUrl}
-              alt="Profile picture"
-            />
+            <img className=" w-full" src={photoUrl} alt="Profile picture" />
           </figure>
           <div className="card-body">
             <h2 className="card-title">{`${firstName} ${lastName}`}</h2>

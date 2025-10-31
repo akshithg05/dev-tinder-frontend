@@ -19,7 +19,7 @@ export default function NavBar() {
     try {
       setLoading(true);
       setModalOpen(true);
-      await axios.post(`${BASE_URL}/logout`, { withCredentials: true });
+      await axios.post(`${BASE_URL}/logout`, {}, { withCredentials: true });
       dispatch(removeUser());
       setLoading(false);
     } catch (err) {
