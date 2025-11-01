@@ -95,3 +95,14 @@
 - Modify BASE_URL in front end to /api
 
 ![alt text](./src/assets/image-1.png)
+
+# Migrated depployment to free services -
+
+- For backend - used onredner
+- For frontend - using netlify
+- For email service - using nodemailer instead of SES.
+- Using nodemailer send email to user on login and sign up (created a dedicated email for sending mails)
+- Since nodemailer cna be used only on trusted sources and works on local host, moving to resend. In resend can send
+  mails to your own email id, for others need a verified dns.
+
+- While adding to different origins for frontend and backend, set cors rules, cookie rules and uth options and check them properly.
