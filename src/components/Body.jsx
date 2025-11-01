@@ -21,6 +21,7 @@ export default function Body() {
         withCredentials: true,
       });
       dispatch(addUser(loggedInUser?.data?.data?.user));
+      navigate("/feed");
     } catch (err) {
       const status = err?.response?.status;
 
