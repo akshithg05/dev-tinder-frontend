@@ -106,3 +106,11 @@
   mails to your own email id, for others need a verified dns.
 
 - While adding to different origins for frontend and backend, set cors rules, cookie rules and uth options and check them properly.
+
+- install node-cron package.
+- Added a cronJob in the backend, reference for cron - https://crontab.guru/#0_0_1_*_\*
+- Add a cronJob to send email everyday at 8 am regarding the number of connection request the previous day.
+- Did this by using date-fns package, getting the previous days data and qurery for requests on that day.
+- Made an email template to send email to the users and redirect them to application through email.
+- Explore queue mechanism to bulk send emails (only if you have lakhs of users). (bee-queue and bull npm packages)
+- Explore email templates as well.
