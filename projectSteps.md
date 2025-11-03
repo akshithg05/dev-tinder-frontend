@@ -114,3 +114,5 @@
 - Made an email template to send email to the users and redirect them to application through email.
 - Explore queue mechanism to bulk send emails (only if you have lakhs of users). (bee-queue and bull npm packages)
 - Explore email templates as well.
+
+- Adjusted the timezone so that the login time is the clients timezone
