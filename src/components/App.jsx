@@ -6,6 +6,7 @@ import Feed from "./Feed";
 import Error from "./Error";
 import Connection from "./Connections";
 import Requests from "./Requests";
+import Privacy from "./Privacy";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/connections" element={<Connection />}></Route>
           <Route path="/requests" element={<Requests />}></Route>
+          <Route path="/privacy" element={<Privacy />}></Route>
         </Route>
         <Route path="/error" element={<Error />}></Route>
         <Route path="*" element={<Error />} />
