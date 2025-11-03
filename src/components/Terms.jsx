@@ -11,7 +11,7 @@ export default function Terms() {
         </div>
       </header>
 
-      <section className="flex-grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <section className="flex grow max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-2xl shadow-sm p-6 sm:p-8 space-y-6">
           <p className="text-gray-700 text-base sm:text-lg">
             Welcome to {COMPANY_NAME}. By using our website and services, you
