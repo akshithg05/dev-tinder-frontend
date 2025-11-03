@@ -7,6 +7,10 @@ import Error from "./Error";
 import Connection from "./Connections";
 import Requests from "./Requests";
 import Privacy from "./Privacy";
+import Contact from "./Contact";
+import Shipping from "./Shipping";
+import Terms from "./Terms";
+import Refund from "./Refund";
 
 function App() {
   return (
@@ -19,6 +23,10 @@ function App() {
           <Route path="/connections" element={<Connection />}></Route>
           <Route path="/requests" element={<Requests />}></Route>
           <Route path="/privacy" element={<Privacy />}></Route>
+          <Route path="/contact" element={<Contact />}></Route>
+          <Route path="/shipping" element={<Shipping />}></Route>
+          <Route path="/terms" element={<Terms />}></Route>
+          <Route path="/refunds" element={<Refund />}></Route>
         </Route>
         <Route path="/error" element={<Error />}></Route>
         <Route path="*" element={<Error />} />
