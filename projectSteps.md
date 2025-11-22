@@ -116,3 +116,9 @@
 - Explore email templates as well.
 
 - Adjusted the timezone so that the login time is the clients timezone
+
+# Razorpay Payment Gateway Integration
+
+- Sign up on Razorpay and complete KYC.
+- Create UI for premium page.
+- Create API for createOrder in backend.

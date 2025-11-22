@@ -11,6 +11,7 @@ import Contact from "./Contact";
 import Shipping from "./Shipping";
 import Terms from "./Terms";
 import Refund from "./Refund";
+import Premium from "./Premium";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/shipping" element={<Shipping />}></Route>
           <Route path="/terms" element={<Terms />}></Route>
           <Route path="/refunds" element={<Refund />}></Route>
+          <Route path="/premium" element={<Premium />}></Route>
         </Route>
         <Route path="/error" element={<Error />}></Route>
         <Route path="*" element={<Error />} />
