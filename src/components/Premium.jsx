@@ -17,6 +17,29 @@ export default function Premium() {
         { withCredentials: true }
       );
 
+      const { keyId, amount, currency, notes, orderId } = data?.data;
+
+      // Open Razorpay dialogue box
+
+      const options = {
+        key: keyId, // Replace with your Razorpay key_id
+        amount: amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+        currency: currency,
+        name: "DevTinder",
+        description: "Connect to fellow developers",
+        order_id: orderId, // This is the order_id created in the backend
+        prefill: {
+          name: notes?.firstName + " " + notes?.lastName,
+          email: notes?.emailId,
+        },
+        theme: {
+          color: "#F37254",
+        },
+      };
+
+      const rzp = new window.Razorpay(options); // This Razorpay comes from the script tag added to the head of index.html
+      rzp.open();
+
       setPaymentData(data?.data);
       setLoading(false);
     } catch (err) {
@@ -24,7 +47,6 @@ export default function Premium() {
     }
   }
 
-  console.log(paymentData);
   return (
     <div className="flex flex-col md:flex-row w-full mt-10 gap-6 px-4 md:px-10">
       {/* Silver */}
@@ -39,7 +61,7 @@ export default function Premium() {
           </ul>
 
           <button
-            onClick={() => handlePaymentClick("silver")}
+            onClick={() => handlePaymentClick("SILVER")}
             className="btn btn-primary w-full mt-4"
             disabled={loading}
           >
@@ -66,7 +88,7 @@ export default function Premium() {
           </ul>
 
           <button
-            onClick={() => handlePaymentClick("gold")}
+            onClick={() => handlePaymentClick("GOLD")}
             className="btn btn-accent w-full mt-4"
             disabled={loading}
           >

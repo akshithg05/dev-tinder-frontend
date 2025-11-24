@@ -122,3 +122,15 @@
 - Sign up on Razorpay and complete KYC.
 - Create UI for premium page.
 - Create API for createOrder in backend.
+- Added my key and secret in env file.
+- Created payment schema and model.
+- Initialize razorpay in utils backend.
+- Creating order on razorpay
+- Created schema
+- Saved order in payment collection
+- Make API dynamic
+- Make a webhook in razorpay.
+- REF - https://razorpay.com/docs/payments/server-integration/nodejs/integration-steps/#integrate-with-razorpay-payment-gateway
+- REF - https://github.com/razorpay/razorpay-node/tree/master/documents
+- REF - https://razorpay.com/docs/webhooks/validate-test/
+- REF - https://razorpay.com/docs/webhooks/payloads/payments/
