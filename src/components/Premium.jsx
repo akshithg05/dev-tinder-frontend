@@ -9,37 +9,16 @@ export default function Premium() {
   async function handlePaymentClick(membershipType) {
     try {
       setLoading(true);
-      const data = await axios.post(
-        `${BASE_URL}/payment/create`,
+      const { data } = await axios.post(
+        `${BASE_URL}/payment/create-checkout-session`,
         {
           membershipType,
         },
         { withCredentials: true }
       );
 
-      const { keyId, amount, currency, notes, orderId } = data?.data;
-      // Open Razorpay dialogue box
+      window.location.href = data.url;
 
-      const options = {
-        key: keyId, // Replace with your Razorpay key_id
-        amount: amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-        currency: currency,
-        name: "DevTinder",
-        description: "Connect to fellow developers",
-        order_id: orderId, // This is the order_id created in the backend
-        prefill: {
-          name: notes?.firstName + " " + notes?.lastName,
-          email: notes?.emailId,
-        },
-        theme: {
-          color: "#F37254",
-        },
-      };
-
-      const rzp = new window.Razorpay(options); // This Razorpay comes from the script tag added to the head of index.html
-      rzp.open();
-
-      setPaymentData(data?.data);
       setLoading(false);
     } catch (err) {
       console.log(err);
