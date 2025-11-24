@@ -18,7 +18,6 @@ export default function Premium() {
       );
 
       const { keyId, amount, currency, notes, orderId } = data?.data;
-
       // Open Razorpay dialogue box
 
       const options = {
