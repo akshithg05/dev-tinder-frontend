@@ -117,19 +117,30 @@
 
 - Adjusted the timezone so that the login time is the clients timezone
 
-# Razorpay Payment Gateway Integration
+# Stripe Payment Gateway Integration
 
-- Sign up on Razorpay and complete KYC.
+- Sign up on Stripe and complete KYC.
 - Create UI for premium page.
 - Create API for createOrder in backend.
 - Added my key and secret in env file.
 - Created payment schema and model.
-- Initialize razorpay in utils backend.
-- Creating order on razorpay
+- Initialize stripe in utils backend.
+- Creating order on stripe
 - Created schema
 - Saved order in payment collection
 - Make API dynamic
-- Make a webhook in razorpay.
+- Make a webhook in stripe.
+- Created a payment verification API
+- DO not show payment page to premium users
+- Give option to upgrade to GOLd for silver members and do not accept payment for gold members.
+
+# TODO
+
+- Make the premium button standout in the options
+- Allow only premium members to view their connections, regular users can see only connection count but not actual connections
+
+## Old razorpay docs
+
 - REF - https://razorpay.com/docs/payments/server-integration/nodejs/integration-steps/#integrate-with-razorpay-payment-gateway
 - REF - https://github.com/razorpay/razorpay-node/tree/master/documents
 - REF - https://razorpay.com/docs/webhooks/validate-test/
