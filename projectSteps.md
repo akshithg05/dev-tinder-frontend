@@ -133,11 +133,11 @@
 - Created a payment verification API
 - DO not show payment page to premium users
 - Give option to upgrade to GOLd for silver members and do not accept payment for gold members.
+- Allow only premium members to view their connections, regular users can see only connection count but not actual connections
 
 # TODO
 
-- Make the premium button standout in the options
-- Allow only premium members to view their connections, regular users can see only connection count but not actual connections
+- Make the premium button standout in the options for non-premium members
 
 ## Old razorpay docs
 

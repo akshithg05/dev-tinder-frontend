@@ -9,6 +9,7 @@ export default function Requests() {
   const [error, setError] = useState(null);
   const [showToast, setShowToast] = useState(false);
   const [requestState, setRequestState] = useState(null);
+  const [isUserPremium, setIsUserPremium] = useState(false);
 
   const navigate = useNavigate();
 
@@ -16,7 +17,9 @@ export default function Requests() {
     try {
       setError(false);
       setLoading(true);
-      const res = await axios.get(`${BASE_URL}/user/requests/pending`, { withCredentials: true });
+      const res = await axios.get(`${BASE_URL}/user/requests/pending`, {
+        withCredentials: true,
+      });
       setConnectionRequests(res?.data?.pendingRequests);
     } catch (err) {
       setError(true);
@@ -30,7 +33,11 @@ export default function Requests() {
     const prevState = [...connectionRequests];
     setConnectionRequests((prev) => prev.filter((req) => req._id !== id));
     try {
-      await axios.post(`${BASE_URL}/request/review/${action}/${id}`, {}, { withCredentials: true });
+      await axios.post(
+        `${BASE_URL}/request/review/${action}/${id}`,
+        {},
+        { withCredentials: true }
+      );
       setRequestState(action);
       setShowToast(true);
       setTimeout(() => setShowToast(false), 3000);
@@ -41,15 +48,73 @@ export default function Requests() {
     }
   }
 
+  async function verifyPremium() {
+    try {
+      setLoading(true);
+      const data = await axios.get(`${BASE_URL}/payment/verify-payment`, {
+        withCredentials: true,
+      });
+      setIsUserPremium(data?.data?.isPremium);
+
+      setLoading(false);
+    } catch (err) {
+      setError(err);
+    }
+  }
+
+  useEffect(() => {
+    verifyPremium();
+  }, []);
+
   useEffect(() => {
     fetchConnectionRequests();
   }, []);
+
+  if (!isUserPremium && !loading && !error) {
+    return (
+      <div className="w-full flex flex-col items-center justify-center mt-10">
+        <div className="card bg-base-200 shadow-md rounded-2xl p-6 text-center max-w-md">
+          {connectionRequests.length > 0 && (
+            <>
+              <h1 className="text-2xl font-bold mb-3 flex items-center justify-center gap-2">
+                You have
+                <span className="px-3 py-1 bg-primary text-white rounded-full animate-pulse text-xl shadow">
+                  {connectionRequests.length}
+                </span>
+                {connectionRequests.length === 1 ? "request" : "requests"}
+              </h1>
+            </>
+          )}
+
+          <h1 className="text-2xl font-bold mb-3">
+            You're not a Premium Member
+          </h1>
+
+          <p className="text-sm opacity-80 mb-5">
+            Go to the premium tab and upgrade your account for premium
+            membership to view your requests
+          </p>
+
+          <button
+            className="btn btn-primary w-full"
+            onClick={() => (window.location.href = "/premium")}
+          >
+            Upgrade to premium today!
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
       {showToast && (
         <div className="toast toast-center toast-top">
-          <div className={`alert ${requestState === "accepted" ? "alert-success" : "alert-error"}`}>
+          <div
+            className={`alert ${
+              requestState === "accepted" ? "alert-success" : "alert-error"
+            }`}
+          >
             <span>Connection request {requestState}</span>
           </div>
         </div>
@@ -67,7 +132,9 @@ export default function Requests() {
         </div>
       ) : (
         <div>
-          <h1 className="text-2xl font-bold px-5 py-3">Pending connection requests</h1>
+          <h1 className="text-2xl font-bold px-5 py-3">
+            Pending connection requests
+          </h1>
           <div className="flex justify-center mb-5">
             <div className="flex flex-col justify-center gap-4 overflow-y-auto max-h-[80vh] px-3 w-full sm:w-auto">
               {connectionRequests.map((request) => (
@@ -76,7 +143,11 @@ export default function Requests() {
                   className="card card-side bg-base-300 shadow-sm w-full sm:w-[90%] md:w-[700px] flex-shrink-0"
                 >
                   <figure>
-                    <img className="w-30" src={request?.fromUserId?.photoUrl} alt="photo" />
+                    <img
+                      className="w-30"
+                      src={request?.fromUserId?.photoUrl}
+                      alt="photo"
+                    />
                   </figure>
                   <div className="card-body">
                     <h2 className="card-title font-bold">{`${request?.fromUserId?.firstName} ${request?.fromUserId?.lastName}`}</h2>

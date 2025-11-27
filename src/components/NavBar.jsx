@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+
 import { Link, useNavigate } from "react-router-dom";
 import Modal from "./Modal";
 import { useState } from "react";
@@ -10,11 +11,11 @@ export default function NavBar() {
   const loggedInUser = useSelector((state) => state?.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((store) => store?.user);
 
   const [error, setError] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-
   async function handleLogOut() {
     try {
       setLoading(true);
@@ -106,10 +107,29 @@ export default function NavBar() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/premium" className="justify-between">
-                    Premium
-                  </Link>
+                  {!user?.isPremium ? (
+                    <Link
+                      to="/premium"
+                      className="justify-between flex items-center font-semibold text-amber-500"
+                    >
+                      <span className="flex items-center gap-2">
+                        <span className="text-lg">👑</span>
+                        Upgrade to Premium
+                      </span>
+                      <span className="badge badge-warning badge-sm text-xs">
+                        New
+                      </span>
+                    </Link>
+                  ) : (
+                    <Link
+                      to="/premium"
+                      className="justify-between font-semibold text-green-500"
+                    >
+                      Premium Member
+                    </Link>
+                  )}
                 </li>
+
                 <li>
                   <button
                     onClick={() => {

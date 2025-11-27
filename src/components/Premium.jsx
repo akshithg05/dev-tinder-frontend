@@ -74,7 +74,7 @@ export default function Premium() {
 
               <button
                 className="btn btn-outline w-full mt-3"
-                onClick={() => (window.location.href = "/")}
+                onClick={() => (window.location.href = "/feed")}
               >
                 Go to Home
               </button>
