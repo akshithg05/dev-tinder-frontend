@@ -25,6 +25,14 @@ export default function Connection() {
     }
   }
 
+  async function handleChat(toUserId) {
+    try {
+      navigate(`/chat/${toUserId}`);
+    } catch (err) {
+      navigate("/error");
+    }
+  }
+
   useEffect(() => {
     fetchConnections();
   }, []);
@@ -70,7 +78,12 @@ export default function Connection() {
                       <p>{`${connection?.age}, ${connection?.gender}`}</p>
 
                       <div className="card-actions justify-end">
-                        <button className="btn btn-primary">Message!</button>
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => handleChat(connection?._id)}
+                        >
+                          Message!
+                        </button>
                       </div>
                     </div>
                   </div>

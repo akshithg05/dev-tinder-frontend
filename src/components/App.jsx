@@ -12,6 +12,7 @@ import Shipping from "./Shipping";
 import Terms from "./Terms";
 import Refund from "./Refund";
 import Premium from "./Premium";
+import Chat from "./Chat";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/terms" element={<Terms />}></Route>
           <Route path="/refunds" element={<Refund />}></Route>
           <Route path="/premium" element={<Premium />}></Route>
+          <Route path="/chat/:toUserId" element={<Chat />}></Route>
         </Route>
         <Route path="/error" element={<Error />}></Route>
         <Route path="*" element={<Error />} />

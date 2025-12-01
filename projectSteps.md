@@ -137,3 +137,8 @@
 - Make the premium button standout in the options for non-premium members.
 
 # Adding real time chatting application using websockets (using socket.io)
+
+- If two people are connected they should be able to talk to each other, thats all.
+- Build the UI for chat window on a new route /chat/{targetUserId}
+- Set up 'socket.io' in the backend. - npm install socket.io
+- Complete back end configuration
