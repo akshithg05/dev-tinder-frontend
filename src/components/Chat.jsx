@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { createSocketConnection } from "./../../utils/socket";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { BASE_URL } from "../../utils/constants";
 
 export default function Chat() {
   const { toUserId } = useParams();
@@ -13,9 +15,50 @@ export default function Chat() {
 
   const [allMessages, setAllMessages] = useState([]);
   const [message, setMessage] = useState("");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const getTime = () =>
     new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+
+  const fetchChats = async () => {
+    try {
+      setLoading(true);
+
+      const res = await axios.get(`${BASE_URL}/chat/${toUserId}`, {
+        withCredentials: true,
+      });
+
+      const messages = res?.data?.data?.messages || [];
+
+      const normalized = messages.map((msg) => {
+        const isMe = msg.senderId._id === userId;
+
+        return {
+          text: msg.text,
+          from: isMe ? "me" : "them",
+          name: isMe
+            ? "Me"
+            : `${msg.senderId.firstName} ${msg.senderId.lastName}`,
+          time: new Date(msg.createdAt).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          senderId: msg.senderId._id,
+        };
+      });
+
+      setAllMessages(normalized);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      setError(true);
+    }
+  };
+
+  useEffect(() => {
+    if (userId) fetchChats();
+  }, [userId]);
 
   useEffect(() => {
     if (!userId) return;
@@ -24,6 +67,7 @@ export default function Chat() {
 
     socketRef.current.emit("joinChat", {
       firstName: user?.firstName,
+      lastName: user?.lastName,
       userId,
       toUserId,
     });
@@ -78,6 +122,22 @@ export default function Chat() {
     ]);
 
     setMessage("");
+  }
+
+  if (loading && !error) {
+    return (
+      <div className="grid place-items-center min-h-full">
+        <span className="loading  loading-spinner loading-xl"></span>
+      </div>
+    );
+  }
+
+  if (!loading && error) {
+    return (
+      <div className="grid place-items-center min-h-full">
+        <h1>Somehting went wrong!</h1>
+      </div>
+    );
   }
 
   return (

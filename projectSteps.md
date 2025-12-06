@@ -141,4 +141,27 @@
 - If two people are connected they should be able to talk to each other, thats all.
 - Build the UI for chat window on a new route /chat/{targetUserId}
 - Set up 'socket.io' in the backend. - npm install socket.io
+- Set up front end
+- INtitialize chat
+- Create socket connection
+- Listen to events.
 - Complete back end configuration
+- Added real time chatting , users connect to a room in web socker
+- Users communicate in thier room.
+- Add chat api to load older messages in the chat
+- Call api in Ui and format message
+- Security flaw identified - We can send messages to any user who is not our friend as well by fetching their userId. (future fix)
+- userId and targetUserId need to be friends, else messages should not be sent (enhancement)
+
+# Enhancements -
+
+- Show green symbol when person is online - basically active status
+- Last seen feature.
+- Limit messages on API call. (for scale)
+- Implement infitie scroll.
+
+# Project ideas -
+
+- Tic Tac Toe game
+- Chess game
+- TypeRacer
