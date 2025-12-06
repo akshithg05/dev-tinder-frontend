@@ -1,97 +1,133 @@
-# DevTinder
+# DevTinder 🔥
 
-## Steps
+_A full-stack matchmaking and networking platform with real-time chat, payments, and email automation._
 
-- Create a Vite + React app
-- Remove unnecessary code and clean up
-- Initialize git repository and commit.
-- Install and configure tailwind css.
-- We will use component library - daisyUI.
-- Install daisyUI
-- Add NavBar to App.css and play around with code
-- Install react router dom
-- Create Browser router > Create Routes component
-- Create Body and multiple children
-- Create an outlet for the children in the body.
-- Add a footer.
-- Build a login page
-- Install Axios
-- Solve cors problem by installing cors in backend
-- add cors middleware with configuration - origin and credential: true
-- Whenever we make API call in axios {withCredentials: true} (Auth will fail, cookie will not be sent from backend)
-- Install redux toolkit and react-redux
-- Configure a store - appStore
-- Provide the store in the root of the application to make it available throughout.
-- Create a reducer object in the main store to hold the various slices.
-- Create a new file for userSlice.
-- In user Slice, give name, intitialize the state, write the actions and reducer functions. IMport the actions and the slice(reducer)
-- Import slice in the main store and pass it in the reducers of store.
-- Add redux dev tools
-- Login and see if data is cmoing into store.
-- Refactor code to add constants file.
-- If token is not present, redirect user to login page
-- If user is not logged in do not allow anty route other than login.
-- Built Logout feature and logout modal
-- Get feed and feed in the store
-- Build the user card.
-- Build edit profile page
-- Add edit profile form and usercard.
-- Add toast notification for saving profile.
-- Add Connections page.
-- Add connection requests page
-- Accept reject connection request in request page
-- Swipe left/ swipe right functionality
-- Sign up user
-- Match or not functionality
+DevTinder is a production-style full-stack application inspired by modern social platforms. It is built to explore real-world engineering challenges such as authentication, scalable APIs, payments, background jobs, and real-time messaging.
 
-## Deployment
+This project focuses on writing clean, maintainable code while solving practical problems like deployment, session management, cross-origin communication, and event-driven flows.
 
-# Frontend
+---
 
-- Create free ec2 instance.
-- create a key pair and download the .pem file
-- store it locally and then change permission of the .pem file "chmod 400 <.pem file>"
-- ssh into the ec2 instance using - ssh -i "dev-tinder-frontend-secret.pem" ubuntu@ec2-13-203-195-71.ap-south-1.compute.amazonaws.com
-- Install node in the machine and make sure the same working version of the local version is added.
-- SSh into machine and clone the backend and frontend projects.
-- cd into frontend project, do npm install and create a build - npm run build
-- update system - sudo apt update
-- install nginx - sudo apt install nginx
-- start nginx - sudo systemctl start nginx
-- enable nginx - sudo systemctl enable nginx
-- Copy code from dist folder (build files) to nginx http server (/var/www/html) - sudo scp -r dist/\* /var/www/html
-- Enable port 80 on instance through aws security groups
+## 🌐 Live Demo
 
-# Backend
+Frontend: https://dev-tidner.netlify.app/feed
+Backend API: https://dev-tinder-backend-r1ek.onrender.com
 
-- Whitelist the instance IP on mongodb
-- Copy .env file to the instance folder where backend app is running.
-- Run "npm start" and see if it works.
-- Install pm2 (process manager) to keep the connection alive, not rely on terminal - "npm install pm2 -g"
-- Run "pm2 start npm -- start" - To start a new process and keep it running online
-- For logs - pm2 logs
-- clear logs - pm2 flush |name_of_process|
-- list of services - pm2 list
-- Stop and delete service - pm2 delete |service|
-- Custom name to service - pm2 start npm --name "dev-tinder-backend" -- start
-- Use nginx proxy pass to map /api to port :3000
-- nginx config location - sudo nano /etc/nginx/sites-available/default
+---
 
-- nginx config :
+## 🛠 Tech Stack
 
-  server_name 13.203.195.71;
+### Frontend
 
-        # Proxy API requests to Node.js backend
-        location /api/ {
-                proxy_pass http://localhost:3000/;
-                proxy_http_version 1.1;
-                proxy_set_header Upgrade $http_upgrade;
-                proxy_set_header Connection 'upgrade';
-                proxy_set_header Host $host;
-                proxy_cache_bypass $http_upgrade;
-        }
+- React (Vite)
+- Tailwind CSS + DaisyUI
+- Redux Toolkit
+- React Router
+- Axios
+- Socket.IO (client)
 
-- We need to restart nginx - sudo systemctl restart nginx
-- Modify BASE_URL in front end to /api
+### Backend
 
-![alt text](./src/assets/image-1.png)
+- Node.js
+- Express.js
+- MongoDB (Mongoose)
+- Socket.IO
+- Stripe
+- Nodemailer / Resend
+- Node-Cron
+- date-fns
+- JWT + Secure Cookies
+
+### Deployment
+
+- Frontend: Netlify
+- Backend: Render
+- Database: MongoDB Atlas
+- Email Service: Resend
+- Payments: Stripe
+
+---
+
+## ✨ Features
+
+### Authentication & User Management
+
+- Secure login/signup using cookie-based sessions
+- Edit profile functionality
+- Route protection based on auth state
+- Logout with session invalidation
+
+### Matching System
+
+- Tinder-style swipe feature
+- Send / accept / reject connection requests
+- Mutual match logic
+- Connections and request management views
+
+### Premium Membership (Stripe Integration)
+
+- Stripe Checkout workflow
+- Webhook-based payment verification
+- Tiered subscription model:
+  - Free
+  - Silver
+  - Gold
+- Feature-based access control
+- Guards against invalid upgrades
+
+### Real-Time Chat (Socket.IO)
+
+- Private one-to-one messaging
+- Room-based WebSocket communication
+- Message persistence
+- Chat UI with history loader
+- Planned: restrict chat to only matched users
+
+### Email Automation
+
+- Welcome email on signup
+- Login notifications
+- Daily email summary of connection activity
+- HTML email templates
+- Timezone-aware timestamps
+
+### UI Experience
+
+- Toast notifications
+- Responsive design
+- Protected navigation
+- Real-time UI updates
+
+---
+
+## 🧩 Architecture Overview
+
+- Frontend and backend deployed independently
+- Centralized state management with Redux Toolkit
+- Cookie-based authentication across domains
+- WebSocket rooms per user session
+- Stripe handled fully server-side
+- Cron jobs for scheduled jobs
+- Environment isolation via `.env` configurations
+
+---
+
+## 🚀 Deployment Overview
+
+This project was initially deployed using AWS EC2 and later migrated to free hosting services for easier maintenance and faster iteration.
+
+### Current Setup
+
+- Frontend hosted on Netlify
+- Backend hosted on Render
+- MongoDB through Atlas
+- Email delivery using Resend
+- Stripe in production mode
+
+Deployment challenges solved:
+
+- CORS handling
+- Cross-origin cookie control
+- Certificate-free HTTPS issues
+- Secure environment variables
+- Stateful backend processes
